@@ -63,12 +63,8 @@ def search(request):
 def random(request):
     entries = util.list_entries()
     entry = choice(entries)
-    markdownpage = Markdown()
-    page = util.get_entry(entry)
-    return render(request, "encyclopedia/entry.html", {
-        "entry": markdownpage.convert(page),
-        "entryHead": entry
-    })
+    return HttpResponseRedirect(reverse("encyclopedia:entry", kwargs={'entry': entry})) 
+
 def new_entry(request):
     markdownpage = Markdown()
     if request.method == "POST":
